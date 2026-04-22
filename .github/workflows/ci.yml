@@ -9,7 +9,6 @@ jobs:
 build:
 runs-on: ubuntu-latest
 
-```
 steps:
   - name: Checkout code
     uses: actions/checkout@v4
@@ -24,4 +23,3 @@ steps:
 
   - name: Run Django check
     run: python manage.py check
-```
