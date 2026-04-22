@@ -1,0 +1,31 @@
+{%extends 'base.html'%}
+{%block start%}
+
+<div class="container d-flex justify-content-center mt-3" style="min-height: 50vh;">
+    <div class="card p-4 shadow" style="width: 400px;">
+        <h3 class="text-center mb-4"> Update Anime</h3>
+        
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label class="form-label">Anime Name</label>
+                <input value="{{animes.anime_name}}" type="text" class="form-control" name="name" placeholder="Enter anime name" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Anime Description</label>
+                <textarea class="form-control" name="description" rows="3" placeholder="Enter description" required>{{animes.anime_description}}</textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Anime Thumbnail</label>
+                <input type="file" class="form-control" name="image" >
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Submit</button>
+        </form>
+    </div>
+</div>
+
+{%endblock%}

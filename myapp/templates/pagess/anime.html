@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block start %}
+
+<div class="container d-flex justify-content-center mt-3" style="min-height: 50vh;">
+    <div class="card p-4 shadow" style="width: 400px;">
+        <h3 class="text-center mb-4">Add Anime</h3>
+        
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label class="form-label">Anime Name</label>
+                <input type="text" class="form-control" name="name" placeholder="Enter anime name" required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Anime Description</label>
+                <textarea class="form-control" name="description" rows="3" placeholder="Enter description" required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Anime Thumbnail</label>
+                <input type="file" class="form-control" name="image" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Submit</button>
+        </form>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <table class="table table-bordered table-striped text-center align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Anime Name</th>
+                <th>Anime Description</th>
+                <th>Anime Image</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for anime in all_anime_data %}
+            <tr>
+                
+                <td style="font-weight: bold;">{{ anime.anime_name }}</td>
+                <td>{{ anime.anime_description }}</td>
+                <td>
+                    {% if anime.anime_image %}
+                        <img src="{{ anime.anime_image.url }}" width="120" class="img-fluid rounded">
+                    {% else %}
+                        No Image
+                    {% endif %}
+                </td>
+                <td>
+                    <a style="margin-bottom:5px ;" href="{% url 'anime_delete' anime.id%}" class="btn btn-danger">Delete</a>
+                    
+                    <a href="{% url 'update_anime' anime.id%}" class="btn btn-success"> Update</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No Anime Data Found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
